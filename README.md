@@ -61,7 +61,8 @@ graph TD
     J -- Good Quality or No Retries Left --> L[✅ Final Output];
     L --> M[User Interface];
 
-    style K fill:#f9f,stroke:#333,stroke-width:2px```
+    style K fill:#f9f,stroke:#333,stroke-width:2px
+```
 
 ## 🚀 Quick Start
 
