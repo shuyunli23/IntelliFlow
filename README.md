@@ -145,6 +145,12 @@ Use this script for a step-by-step analysis of how the agent's state changes for
 python test/debug_graph.py
 ```
 
+### Alternative: Running the v1 Agent Implementation
+This project also contains a second implementation of the agent that uses LangChain 1.0's high-level `create_agent` helper and a middleware pattern. To run and test this specific version, use the following script.
+```bash
+python test/intelliflow_agent_vl.py
+```
+
 ## 📖 Project Structure
 ```
 IntelliFlow/
