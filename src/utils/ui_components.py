@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class UIComponents:
-    """Enhanced UI components with natural text display"""
+    """UI components with natural text display"""
     
     @staticmethod
     def render_chat_stats(chat_history):

@@ -1,6 +1,6 @@
 # src/agents/graph.py
 """
-Enhanced LangGraph implementation with query rewriting and reflection
+LangGraph implementation with query rewriting and reflection
 """
 import logging
 from typing import Dict, Any, List, TypedDict
@@ -69,17 +69,17 @@ class GraphState(TypedDict):
 
 
 class IntelliFlowGraph:
-    """Enhanced LangGraph implementation with reflection and retry logic"""
+    """LangGraph implementation with reflection and retry logic"""
     
     def __init__(self):
         """Initialize the graph"""
         self.nodes = IntelliFlowNodes()
         self.graph = self._build_graph()
-        logger.info("Enhanced IntelliFlowGraph initialized successfully")
-    
+        logger.info("IntelliFlowGraph initialized successfully")
+
     def _build_graph(self) -> StateGraph:
         """
-        Build the enhanced LangGraph workflow with reflection and retry
+        Build the LangGraph workflow with reflection and retry
         """
         workflow = StateGraph(GraphState)
         
@@ -177,7 +177,7 @@ class IntelliFlowGraph:
         similarity_threshold: float = 0.7
     ) -> Dict[str, Any]:
         """
-        Run the enhanced IntelliFlow agent with reflection and retry
+        Run the IntelliFlow agent with reflection and retry
         """
         # Initialize state
         initial_state = {

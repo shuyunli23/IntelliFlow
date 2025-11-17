@@ -1,6 +1,6 @@
 # src/agents/nodes.py
 """
-Enhanced LangGraph nodes for the IntelliFlow agent with query rewriting and reflection
+LangGraph nodes for the IntelliFlow agent with query rewriting and reflection
 """
 import logging
 from typing import Dict, Any, List, Optional
@@ -53,7 +53,7 @@ class ThinkingFormatter:
 
 
 class IntelliFlowNodes:
-    """Enhanced LangGraph nodes with natural formatted thinking process"""
+    """LangGraph nodes with natural formatted thinking process"""
     
     def __init__(self):
         """Initialize the nodes"""
@@ -67,19 +67,19 @@ class IntelliFlowNodes:
         self.weather_tools = WeatherTools(settings.amap_api_key)
         self.thinking_formatter = ThinkingFormatter()
         
-        logger.info("Enhanced IntelliFlowNodes with natural thinking format initialized successfully")
+        logger.info("IntelliFlowNodes with natural thinking format initialized successfully")
     
     @error_handler()
     @log_execution
     def analyze_query(self, state: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhanced query analysis with simplified thinking process"""
+        """Query analysis with simplified thinking process"""
         query = state.get("query", "")
         thinking_process = []
         
         thinking_process.append("🤔 Step 1: Analyzing query intent")
         thinking_process.append(f"User query: \"{query}\"")
         
-        # Enhanced query analysis using LLM
+        # Query analysis using LLM
         analysis_prompt = """Analyze the following user query and determine:
 1. Is this a weather-related query? (yes/no)
 2. Is this a document/knowledge-based query that would benefit from RAG? (yes/no)
@@ -148,7 +148,7 @@ Respond in JSON format:
         return state
     
     def _fallback_analysis(self, query: str) -> Dict[str, Any]:
-        """Enhanced fallback analysis with more detailed keyword matching"""
+        """Fallback analysis with more detailed keyword matching"""
         weather_keywords = ["weather", "temperature", "rain", "sunny", "cloudy", "forecast", "天气", "温度", "下雨", "晴天"]
         is_weather = any(keyword in query.lower() for keyword in weather_keywords)
         
@@ -172,7 +172,7 @@ Respond in JSON format:
     @error_handler()
     @log_execution
     def rewrite_query(self, state: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhanced query rewriting with simplified thinking process"""
+        """Query rewriting with simplified thinking process"""
         original_query = state.get("original_query", "")
         current_query = state.get("query", original_query)
         query_type = state.get("query_type", "general")
@@ -243,7 +243,7 @@ Refined query (clear and natural):"""
     @error_handler()
     @log_execution
     def retrieve_documents(self, state: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhanced document retrieval with simplified thinking process"""
+        """Document retrieval with simplified thinking process"""
         rewritten_query = state.get("rewritten_query", state.get("query", ""))
         use_rag = state.get("use_rag", True)
         similarity_threshold = state.get("similarity_threshold", settings.default_similarity_threshold)
@@ -263,7 +263,7 @@ Refined query (clear and natural):"""
             thinking_process.append(f"Similarity threshold: {similarity_threshold}")
             
             try:
-                # Use enhanced search with thinking process and fallback
+                # Use search with thinking process and fallback
                 retrieval_thinking = []
                 retrieved_docs = self.vector_store.similarity_search_with_fallback(
                     query=rewritten_query,
@@ -298,7 +298,7 @@ Refined query (clear and natural):"""
     @error_handler()
     @log_execution
     def query_weather(self, state: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhanced weather query with simplified thinking process"""
+        """Weather query with simplified thinking process"""
         is_weather_query = state.get("is_weather_query", False)
         weather_location = state.get("weather_location")
         rewritten_query = state.get("rewritten_query", "")
@@ -355,7 +355,7 @@ Refined query (clear and natural):"""
     @error_handler()
     @log_execution
     def generate_response(self, state: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhanced response generation with simplified thinking process"""
+        """Response generation with simplified thinking process"""
         original_query = state.get("original_query", "")
         context = state.get("context", "")
         weather_info = state.get("weather_info", "")
@@ -377,7 +377,7 @@ Refined query (clear and natural):"""
         
         thinking_process.append(f"Information sources: {', '.join(sources)}")
         
-        # Enhanced system prompt
+        # System prompt
         system_prompt = """You are IntelliFlow, an intelligent assistant that provides accurate and helpful responses.
 
 IMPORTANT RULES:
@@ -441,7 +441,7 @@ Please provide an accurate and helpful answer using your knowledge. Be comprehen
                 "formatted_thinking": formatted_thinking
             })
             
-            logger.info("Enhanced response generated successfully")
+            logger.info("Response generated successfully")
             
         except Exception as e:
             logger.error(f"Response generation failed: {str(e)}")
@@ -461,7 +461,7 @@ Please provide an accurate and helpful answer using your knowledge. Be comprehen
     @error_handler()
     @log_execution
     def reflect_on_response(self, state: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhanced reflection with simplified thinking process"""
+        """Reflection with simplified thinking process"""
         original_query = state.get("original_query", "")
         response = state.get("response", "")
         context = state.get("context", "")
@@ -532,7 +532,7 @@ Respond with JSON:
                         thinking_process.append(f"- {issue}")
                 
             else:
-                needs_improvement = self._enhanced_quality_check(original_query, response, context, weather_info)
+                needs_improvement = self._heuristic_quality_check(original_query, response, context, weather_info)
                 reflection = {"needs_retry": needs_improvement, "overall_quality": "unknown"}
                 thinking_process.append("Using heuristic quality check")
                 thinking_process.append(f"Needs improvement: {'Yes' if needs_improvement else 'No'}")
@@ -553,9 +553,9 @@ Respond with JSON:
                 "thinking_process": thinking_process,
                 "formatted_thinking": formatted_thinking
             })
-            
-            logger.info(f"Enhanced reflection completed. Needs improvement: {needs_improvement}")
-            
+
+            logger.info(f"Reflection completed. Needs improvement: {needs_improvement}")
+
         except Exception as e:
             logger.error(f"Reflection failed: {str(e)}")
             thinking_process.append(f"Evaluation failed: {str(e)}, accepting current response")
@@ -570,9 +570,9 @@ Respond with JSON:
             })
         
         return state
-    
-    def _enhanced_quality_check(self, query: str, response: str, context: str, weather_info: str) -> bool:
-        """Enhanced heuristic quality check"""
+
+    def _heuristic_quality_check(self, query: str, response: str, context: str, weather_info: str) -> bool:
+        """Heuristic quality check"""
         # Basic quality checks
         if len(response.split()) < 15:
             return True
@@ -602,7 +602,7 @@ Respond with JSON:
     @error_handler()
     @log_execution
     def prepare_retry(self, state: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhanced retry preparation with simplified thinking process"""
+        """Retry preparation with simplified thinking process"""
         loop_count = state.get("loop_count", 0)
         original_query = state.get("original_query", "")
         reflection = state.get("reflection", {})
@@ -664,7 +664,7 @@ Respond with JSON:
         thinking_process.append("🔄 Step 6: Generating fallback response using general knowledge")
         thinking_process.append("Previous attempts were unsatisfactory, switching to general knowledge mode")
         
-        # Enhanced system prompt for fallback mode
+        # System prompt for fallback mode
         fallback_system_prompt = """You are IntelliFlow in fallback mode. The system has attempted to answer using retrieved documents but the quality was insufficient after multiple retries.
 
     FALLBACK MODE RULES:

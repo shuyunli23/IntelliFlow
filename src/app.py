@@ -22,8 +22,8 @@ logger = logging.getLogger(__name__)
 
 
 class IntelliFlowApp:
-    """Enhanced IntelliFlow application with formatted thinking process"""
-    
+    """IntelliFlow application with formatted thinking process"""
+
     def __init__(self):
         """Initialize the application"""
         self._init_session_state()
@@ -38,8 +38,8 @@ class IntelliFlowApp:
             st.stop()
         
         init_database()
-        logger.info("Enhanced IntelliFlow application initialized successfully")
-    
+        logger.info("IntelliFlow application initialized successfully")
+
     @error_handler(show_error=False)
     def _init_session_state(self):
         """Initialize Streamlit session state"""
@@ -57,7 +57,7 @@ class IntelliFlowApp:
     @error_handler()
     @log_execution
     def render_sidebar(self):
-        """Enhanced sidebar with thinking process toggle"""
+        """Sidebar with thinking process toggle"""
         st.sidebar.header("⚙️ Settings")
         
         # Model selection
@@ -166,7 +166,7 @@ class IntelliFlowApp:
     @error_handler()
     @log_execution
     def process_user_input(self, prompt: str):
-        """Enhanced user input processing"""
+        """User input processing"""
         # Add user message to history
         self.chat_history.add_message("user", prompt)
         
@@ -182,7 +182,7 @@ class IntelliFlowApp:
             self._process_response(result)
     
     def _process_response(self, result: Dict[str, Any]):
-        """Enhanced response processing with formatted thinking"""
+        """Response processing with formatted thinking"""
         response = result.get("response", "")
         formatted_thinking = result.get("formatted_thinking", "")
         retrieved_docs = result.get("retrieved_docs", [])
@@ -196,7 +196,7 @@ class IntelliFlowApp:
         if formatted_thinking and st.session_state.show_thinking:
             self.chat_history.add_message("assistant_think", formatted_thinking)
         
-        # Save retrieved documents with enhanced information
+        # Save retrieved documents with information
         if retrieved_docs:
             doc_contents = []
             for doc in retrieved_docs:
@@ -231,19 +231,19 @@ class IntelliFlowApp:
     @error_handler()
     @log_execution
     def run(self):
-        """Run the enhanced application"""
+        """Run the application"""
         # Page configuration
         st.set_page_config(
-            page_title="IntelliFlow Enhanced",
+            page_title="IntelliFlow",
             page_icon="📡",
             layout="wide",
             initial_sidebar_state="expanded"
         )
         
         # Main title
-        st.title("📡 IntelliFlow - Enhanced RAG with Smart Retrieval")
+        st.title("📡 IntelliFlow - RAG with Smart Retrieval")
         st.markdown("""
-        **IntelliFlow Enhanced** features intelligent threshold-based retrieval with automatic 
+        **IntelliFlow** features intelligent threshold-based retrieval with automatic 
         fallback to top-k search, ensuring you always get the most relevant information available.
         """)
         
@@ -258,7 +258,7 @@ class IntelliFlowApp:
             self.render_document_upload()
             
             # Chat interface
-            st.subheader("💬 Enhanced Chat Interface")
+            st.subheader("💬 Chat Interface")
             
             # Chat input
             prompt = st.chat_input(
@@ -269,13 +269,13 @@ class IntelliFlowApp:
             if prompt:
                 self.process_user_input(prompt)
             
-            # Render enhanced chat history
-            UIComponents.render_enhanced_chat_history(self.chat_history)
-        
+            # Render chat history
+            UIComponents.render_chat_history(self.chat_history)
+
         with col2:
             # System status
-            st.subheader("🔧 Enhanced System Status")
-            
+            st.subheader("🔧 System Status")
+
             # Database connection status
             if test_connection():
                 st.success("✅ Database Connected")
@@ -293,7 +293,7 @@ class IntelliFlowApp:
             st.success(f"🎯 Retrieval: Threshold {st.session_state.similarity_threshold} + Fallback")
             
             # Features
-            st.subheader("✨ Enhanced Features")
+            st.subheader("✨ Features")
             st.markdown("""
             - 📚 **Smart RAG**: Threshold-based with automatic fallback
             - 🧠 **Formatted Thinking**: Clean, readable reasoning process

@@ -98,7 +98,7 @@ class DashScopeEmbeddings(Embeddings):
 
 
 class PgVectorStore:
-    """Enhanced PostgreSQL + pgvector implementation with fallback retrieval"""
+    """PostgreSQL + pgvector implementation with fallback retrieval"""
     
     def __init__(self):
         """Initialize the vector store"""
@@ -115,7 +115,7 @@ class PgVectorStore:
             separators=settings.separators
         )
         
-        logger.info("Enhanced PgVectorStore initialized successfully")
+        logger.info("PgVectorStore initialized successfully")
     
     @error_handler()
     def split_documents(self, documents: List[Document]) -> List[Document]:
@@ -168,8 +168,8 @@ class PgVectorStore:
         thinking_process: Optional[List[str]] = None
     ) -> List[Document]:
         """
-        Enhanced similarity search with automatic fallback to top-k
-        
+        Similarity search with automatic fallback to top-k
+
         Args:
             query: Search query
             threshold: Similarity threshold for initial search
@@ -241,7 +241,7 @@ class PgVectorStore:
             return documents
             
         except Exception as e:
-            logger.error(f"Enhanced similarity search failed: {str(e)}")
+            logger.error(f"Similarity search failed: {str(e)}")
             if thinking_process is not None:
                 thinking_process.append(f"Search error: {str(e)}")
             return []
@@ -292,7 +292,7 @@ class PgVectorStore:
         k: int = None
     ) -> List[Document]:
         """
-        Backward compatibility method - now uses enhanced search with fallback
+        Backward compatibility method - now uses search with fallback
         """
         return self.similarity_search_with_fallback(
             query=query, 

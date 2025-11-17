@@ -51,17 +51,20 @@ graph TD
     D --> E{Step 3: Intelligent Routing};
     E -- Knowledge Query --> F[📚 Smart Retrieval];
     E -- Weather Query --> G[🛠️ Weather Tool];
-    E -- General Query --> H[🧠 Direct Generation];
+    E -- General Query --> H[🧠 RAG-based Generation];
     F --> H;
     G --> H;
     H --> I[Step 4: Generate Response];
-    I --> J[Step 5: Quality Reflection];
+    I --> J{Step 5: Quality Reflection};
     J -- Poor Quality & Retries Left --> K[Generate Refinement Suggestions];
     K --> D;
-    J -- Good Quality or No Retries Left --> L[✅ Final Output];
+    J -- Max Retries Reached --> N[🧠 General Knowledge Fallback];
+    J -- Good Quality --> L[✅ Final Output];
+    N --> L;
     L --> M[User Interface];
 
     style K fill:#f9f,stroke:#333,stroke-width:2px
+    style N fill:#ffcc99,stroke:#333,stroke-width:2px
 ```
 
 ## 🚀 Quick Start
