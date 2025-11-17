@@ -235,13 +235,13 @@ class IntelliFlowApp:
         # Page configuration
         st.set_page_config(
             page_title="IntelliFlow Enhanced",
-            page_icon="🧠",
+            page_icon="📡",
             layout="wide",
             initial_sidebar_state="expanded"
         )
         
         # Main title
-        st.title("🧠 IntelliFlow - Enhanced RAG with Smart Retrieval")
+        st.title("📡 IntelliFlow - Enhanced RAG with Smart Retrieval")
         st.markdown("""
         **IntelliFlow Enhanced** features intelligent threshold-based retrieval with automatic 
         fallback to top-k search, ensuring you always get the most relevant information available.

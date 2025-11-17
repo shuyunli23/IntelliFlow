@@ -177,7 +177,6 @@ Respond in JSON format:
         current_query = state.get("query", original_query)
         query_type = state.get("query_type", "general")
         main_intent = state.get("main_intent", "")
-        information_type = state.get("information_type", "factual")
         loop_count = state.get("loop_count", 0)
         thinking_process = state.get("thinking_process", [])
         
@@ -219,9 +218,7 @@ Refined query (clear and natural):"""
         try:
             messages = [HumanMessage(content=rewrite_prompt.format(
                 query=current_query, 
-                intent=main_intent,
-                info_type=information_type,
-                loop_count=loop_count
+                intent=main_intent
             ))]
             response = self.llm.invoke(messages)
             rewritten_query = response.content.strip()
