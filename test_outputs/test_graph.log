@@ -4231,3 +4231,108 @@ In essence, **deep learning is a powerful type of machine learning** that excels
 2025-11-14 17:29:08,723 - src.agents.nodes - INFO - Weather information retrieved for Shanghai
 2025-11-14 17:29:08,723 - src.utils.decorators - INFO - query_weather executed successfully
 2025-11-14 17:29:08,723 - src.utils.decorators - INFO - Starting execution of generate_response
+2025-11-17 16:53:21,183 - src.database.vector_store - INFO - PgVectorStore initialized successfully
+2025-11-17 16:53:21,183 - src.tools.weather - INFO - Weather service initialized successfully
+2025-11-17 16:53:21,183 - src.tools.weather - INFO - Weather tools initialized successfully
+2025-11-17 16:53:21,183 - src.agents.nodes - INFO - IntelliFlowNodes with natural thinking format initialized successfully
+2025-11-17 16:53:21,189 - src.agents.graph - INFO - IntelliFlowGraph initialized successfully
+2025-11-17 16:53:21,196 - src.database.connection - INFO - Database connection test successful
+2025-11-17 16:53:21,200 - src.database.connection - INFO - Database initialized successfully
+2025-11-17 16:53:21,200 - __main__ - INFO - GraphTester initialized successfully
+2025-11-17 16:53:21,200 - __main__ - INFO - Generating graph visualization...
+2025-11-17 16:53:22,665 - __main__ - INFO - Starting test execution...
+2025-11-17 16:53:22,665 - __main__ - INFO - 
+============================================================
+2025-11-17 16:53:22,665 - __main__ - INFO - Running Test Case 1: Simple Knowledge Query
+2025-11-17 16:53:22,665 - __main__ - INFO - Query: AF-CLIP?
+2025-11-17 16:53:22,665 - __main__ - INFO - ============================================================
+2025-11-17 16:53:22,665 - src.utils.decorators - INFO - Starting execution of run
+2025-11-17 16:53:22,666 - src.utils.decorators - INFO - Starting execution of analyze_query
+2025-11-17 16:53:26,244 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-17 16:53:26,252 - src.agents.nodes - INFO - Query analysis completed. Type: knowledge
+2025-11-17 16:53:26,253 - src.utils.decorators - INFO - analyze_query executed successfully
+2025-11-17 16:53:26,253 - src.utils.decorators - INFO - Starting execution of rewrite_query
+2025-11-17 16:53:26,872 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-17 16:53:26,874 - src.agents.nodes - INFO - Query rewritten: 'AF-CLIP?' -> 'What is AF-CLIP, and how is it used?'
+2025-11-17 16:53:26,874 - src.utils.decorators - INFO - rewrite_query executed successfully
+2025-11-17 16:53:26,876 - src.utils.decorators - INFO - Starting execution of retrieve_documents
+2025-11-17 16:53:26,876 - src.utils.decorators - INFO - Starting execution of similarity_search_with_fallback
+2025-11-17 16:53:27,146 - src.utils.decorators - INFO - similarity_search_with_fallback executed successfully
+2025-11-17 16:53:27,146 - src.utils.decorators - INFO - retrieve_documents executed successfully
+2025-11-17 16:53:27,147 - src.utils.decorators - INFO - Starting execution of generate_response
+2025-11-17 16:53:38,358 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-17 16:53:38,360 - src.agents.nodes - INFO - Response generated successfully
+2025-11-17 16:53:38,360 - src.utils.decorators - INFO - generate_response executed successfully
+2025-11-17 16:53:38,361 - src.utils.decorators - INFO - Starting execution of reflect_on_response
+2025-11-17 16:53:42,588 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-17 16:53:42,590 - src.agents.nodes - INFO - Reflection completed. Needs improvement: False
+2025-11-17 16:53:42,590 - src.utils.decorators - INFO - reflect_on_response executed successfully
+2025-11-17 16:53:42,591 - src.agents.graph - INFO - Graph execution completed successfully after 1 attempts
+2025-11-17 16:53:42,591 - src.utils.decorators - INFO - run executed successfully
+2025-11-17 16:53:42,591 - __main__ - INFO - ✅ Test completed successfully
+2025-11-17 16:53:42,591 - __main__ - INFO - ⏱️  Execution time: 19.93s
+2025-11-17 16:53:42,592 - __main__ - INFO - 🔄 Total loops: 1
+2025-11-17 16:53:42,592 - __main__ - INFO - 📝 Query rewritten: True
+2025-11-17 16:53:42,592 - __main__ - INFO - 🤔 Reflection performed: True
+2025-11-17 16:53:42,592 - __main__ - INFO - 📚 Retrieved docs: 3
+2025-11-17 16:53:42,592 - __main__ - INFO - 🌤️ Weather info: False
+2025-11-17 16:53:42,592 - __main__ - INFO - 
+🧠 Thinking Process:
+🤔 Step 1: Analyzing query intent ==> 
+
+User query: "AF-CLIP?"
+Query type: knowledge
+Main intent: The user is likely inquiring about AF-CLIP, possibly seeking information on its definition, purpose, or application.
+Will search document database
+
+🔄 Step 2: Optimizing query ==> 
+
+Original: "AF-CLIP?"
+Optimized: "What is AF-CLIP, and how is it used?"
+
+📚 Step 3: Retrieving documents ==> 
+
+Search query: "What is AF-CLIP, and how is it used?"
+Similarity threshold: 0.7
+No documents above threshold 0.7, using top-3 fallback
+Retrieved top 3 most similar documents
+Successfully retrieved 3 relevant documents
+
+💭 Step 4: Generating response ==> 
+
+Information sources: document knowledge
+Response generated successfully, length: 156 words
+
+🤔 Step 5: Evaluating response quality ==> 
+
+Current attempt: 1/3
+Adequately answered: Yes
+Used best sources: Yes
+Appropriate detail: Yes
+Overall quality: excellent
+Response quality meets standards
+2025-11-17 16:53:42,592 - __main__ - INFO - 
+💬 Response:
+AF-CLIP stands for "Anomaly-Focused CLIP Adaptation," a method proposed for zero-shot anomaly detection. According to Document 1, AF-CLIP is introduced in the paper titled *AF-CLIP: Zero-Shot Anomaly Detection via Anomaly-Focused CLIP Adaptation*, presented at MM ’25 (October 27–31, 2025, Dublin, Ireland). The approach adapts the CLIP model—originally designed for natural language and image understanding—to detect anomalies without requiring labeled anomaly examples during training (hence "zero-shot"). 
+
+The paper evaluates AF-CLIP on few-shot anomaly detection tasks using the MVTec and Visa datasets, reporting performance in terms of average AUROC (Area Under the Receiver Operating Characteristic curve) and AP (Average Precision), with results given as mean ± standard deviation (%). However, specific numerical performance values are not fully visible in the provided text excerpt.
+
+For a complete understanding of AF-CLIP’s methodology, architecture, and full experimental results, access to the full paper would be beneficial, as the retrieved content only provides partial information from Table 2 and the title/abstract section.
+2025-11-17 16:53:42,592 - __main__ - INFO - 
+============================================================
+2025-11-17 16:53:42,592 - __main__ - INFO - Running Test Case 2: Weather Query - Beijing
+2025-11-17 16:53:42,592 - __main__ - INFO - Query: What's the weather like in Beijing?
+2025-11-17 16:53:42,592 - __main__ - INFO - ============================================================
+2025-11-17 16:53:42,592 - src.utils.decorators - INFO - Starting execution of run
+2025-11-17 16:53:42,594 - src.utils.decorators - INFO - Starting execution of analyze_query
+2025-11-17 16:53:44,804 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-17 16:53:44,806 - src.agents.nodes - INFO - Query analysis completed. Type: weather
+2025-11-17 16:53:44,806 - src.utils.decorators - INFO - analyze_query executed successfully
+2025-11-17 16:53:44,807 - src.utils.decorators - INFO - Starting execution of rewrite_query
+2025-11-17 16:53:45,515 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-17 16:53:45,516 - src.agents.nodes - INFO - Query rewritten: 'What's the weather like in Beijing?' -> 'What is the current temperature and weather condition in Beijing, China?'
+2025-11-17 16:53:45,516 - src.utils.decorators - INFO - rewrite_query executed successfully
+2025-11-17 16:53:45,518 - src.utils.decorators - INFO - Starting execution of query_weather
+2025-11-17 16:53:45,773 - src.agents.nodes - INFO - Weather information retrieved for Beijing
+2025-11-17 16:53:45,774 - src.utils.decorators - INFO - query_weather executed successfully
+2025-11-17 16:53:45,775 - src.utils.decorators - INFO - Starting execution of generate_response

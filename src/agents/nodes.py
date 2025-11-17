@@ -179,7 +179,8 @@ Respond in JSON format:
         main_intent = state.get("main_intent", "")
         loop_count = state.get("loop_count", 0)
         thinking_process = state.get("thinking_process", [])
-        
+        refinement_suggestions = state.get("refinement_suggestions", [])
+
         thinking_process.append("🔄 Step 2: Optimizing query")
         
         if loop_count > 0:
@@ -214,6 +215,10 @@ Original query: {query}
 Main intent: {intent}
 
 Refined query (clear and natural):"""
+
+        if refinement_suggestions:
+            suggestions_text = "; ".join(refinement_suggestions)
+            rewrite_prompt += f"\n\nIncorporate the following suggestions to improve the query: {suggestions_text}"
         
         try:
             messages = [HumanMessage(content=rewrite_prompt.format(
@@ -244,7 +249,7 @@ Refined query (clear and natural):"""
     @log_execution
     def retrieve_documents(self, state: Dict[str, Any]) -> Dict[str, Any]:
         """Document retrieval with simplified thinking process"""
-        rewritten_query = state.get("rewritten_query", state.get("query", ""))
+        rewritten_query = state.get("rewritten_query", state.get("query", state.get("original_query", "")))
         use_rag = state.get("use_rag", True)
         similarity_threshold = state.get("similarity_threshold", settings.default_similarity_threshold)
         thinking_process = state.get("thinking_process", [])
@@ -605,6 +610,7 @@ Respond with JSON:
         """Retry preparation with simplified thinking process"""
         loop_count = state.get("loop_count", 0)
         original_query = state.get("original_query", "")
+        current_query = state.get("rewritten_query", original_query)
         reflection = state.get("reflection", {})
         thinking_process = state.get("thinking_process", [])
         
@@ -617,20 +623,17 @@ Respond with JSON:
         improvement_suggestions = reflection.get("improvement_suggestions", [])
         
         if improvement_suggestions:
-            retry_query = f"{original_query} (Focus on: {', '.join(improvement_suggestions[:2])})"
-            thinking_process.append(f"Optimizing query focus based on feedback: {', '.join(improvement_suggestions[:2])}")
-        else:
-            retry_query = original_query
-            thinking_process.append("Query remains unchanged")
+            thinking_process.append(f"Applying feedback for next attempt: {', '.join(improvement_suggestions)}")
         
         thinking_process.append("Clearing previous results, restarting process")
         
         state.update({
             "loop_count": new_loop_count,
-            "query": retry_query,
+            "query": current_query,
             "response_generated": False,
             "needs_improvement": False,
             "reflection_complete": False,
+            "refinement_suggestions": improvement_suggestions,
             # Clear previous results
             "rewritten_query": "",
             "context": "",
