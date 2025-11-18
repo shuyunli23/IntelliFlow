@@ -78,7 +78,7 @@ graph TD
 
 ### 1. Clone the Repository
 ```bash
-git clone https://your-repository-url.git
+git clone https://github.com/shuyunli23/IntelliFlow.git
 cd IntelliFlow
 ```
 
@@ -86,7 +86,9 @@ cd IntelliFlow
 Copy the example environment file. You will need to fill in your API keys.
 ```bash
 cp .env.example .env
-```Now, edit the `.env` file with your Alibaba Cloud (for DashScope models) and Amap API keys:```env
+```
+Now, edit the `.env` file with your Alibaba Cloud (for DashScope models) and Amap API keys:
+```env
 # .env
 ALI_API_KEY="sk-your-alibaba-cloud-api-key"
 AMAP_API_KEY="your-amap-api-key"
